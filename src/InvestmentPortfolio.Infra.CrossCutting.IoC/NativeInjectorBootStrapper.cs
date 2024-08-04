@@ -6,6 +6,7 @@ using InvestmentPortfolio.Infra.CrossCutting.Interfaces;
 using InvestmentPortfolio.Infra.CrossCutting.Services;
 using InvestmentPortfolio.Infra.Data.Context;
 using InvestmentPortfolio.Infra.Data.Repositories;
+using InvestmentPortfolio.Infra.Data.Seeds;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,6 +29,7 @@ namespace InvestmentPortfolio.Infra.CrossCutting.IoC
             builder.Services.AddScoped<IFinancialProductRepository, FinancialProductRepository>();
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<UserSeed>();
         }
     }
 }

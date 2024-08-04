@@ -21,7 +21,7 @@ namespace InvestmentPortfolio.Infra.Data.Maps
             builder.Property(t => t.Role)
                 .IsRequired()
                 .HasConversion<string>()
-                .HasMaxLength(10);
+                .HasMaxLength(15);
 
             builder.HasIndex(t => t.Email)
                 .IsUnique();

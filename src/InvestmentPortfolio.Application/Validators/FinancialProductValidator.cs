@@ -10,11 +10,11 @@ namespace InvestmentPortfolio.Application.Validators
         {
             RuleFor(p => p.Ticker)
                 .NotEmpty().WithMessage("O nome do produto financeiro é obrigatório.")
-                .Length(2, 150).WithMessage("O nome do produto financeiro deve ter entre 2 e 150 caracteres.");
+                .Length(2, 100).WithMessage("O nome do produto financeiro deve ter entre 2 e 100 caracteres.");
 
             RuleFor(p => p.Name)
                 .NotEmpty().WithMessage("O nome do produto financeiro é obrigatório.")
-                .Length(2, 150).WithMessage("O nome do produto financeiro deve ter entre 2 e 150 caracteres.");
+                .Length(2, 100).WithMessage("O nome do produto financeiro deve ter entre 2 e 100 caracteres.");
 
             RuleFor(p => p.MaturityDate)
               .Must(ValidationExtensions.BeAValidDate).WithMessage("A data fornecida não é válida.");

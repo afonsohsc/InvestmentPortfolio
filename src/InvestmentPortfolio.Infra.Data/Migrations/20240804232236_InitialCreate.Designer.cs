@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvestmentPortfolio.Infra.Data.Migrations
 {
     [DbContext(typeof(InvestmentPortfolioContext))]
-    [Migration("20240804210933_InitialCreate")]
+    [Migration("20240804232236_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -120,8 +120,8 @@ namespace InvestmentPortfolio.Infra.Data.Migrations
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.HasKey("Id");
 

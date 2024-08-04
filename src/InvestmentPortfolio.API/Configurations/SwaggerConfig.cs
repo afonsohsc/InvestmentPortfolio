@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.OpenApi.Models;
 
 namespace InvestmentPortfolio.API.Configurations
 {
@@ -15,67 +16,10 @@ namespace InvestmentPortfolio.API.Configurations
                 s.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Equinox Project",
-                    Description = "Equinox API Swagger surface",
-                    Contact = new OpenApiContact { Name = "Eduardo Pires", Email = "contato@eduardopires.net.br", Url = new Uri("http://www.eduardopires.net.br") },
-                    License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://github.com/EduardoPires/EquinoxProject/blob/master/LICENSE") }
-                });
-
-                s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "Input the JWT like: Bearer {your token}",
-                    Name = "Authorization",
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey
-                });
-
-                s.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[] {}
-                    }
-                });
-
-                // Excluding ASP.NET Identity endpoints
-                s.DocInclusionPredicate((docName, apiDesc) =>
-                {
-                    var relativePath = apiDesc.RelativePath;
-
-                    // List of avoid patches
-                    var identityEndpoints = new[]
-                    {
-                        "register",
-                        "manage",
-                        "refresh",
-                        "login",
-                        "confirmEmail",
-                        "resendConfirmationEmail",
-                        "forgotPassword",
-                        "resetPassword"
-                    };
-
-                    // Validating if the endpoint is avoided
-                    foreach (var endpoint in identityEndpoints)
-                    {
-                        if (relativePath.Contains(endpoint, StringComparison.OrdinalIgnoreCase))
-                        {
-                            return false;
-                        }
-                    }
-
-                    return true;
-                });
-
+                    Title = "Investment Portfolio Project",
+                    Description = "Investment Portfolio API Swagger surface",
+                    Contact = new OpenApiContact { Name = "Afonso Carvalho", Email = "afonsohenriquesc@hotmail.com", Url = new Uri("https://www.linkedin.com/in/afonsohscarvalho/") }
+                });                               
             });
 
             return builder;

@@ -1,4 +1,5 @@
-﻿using InvestmentPortfolio.Application.Interfaces;
+﻿using FluentValidation;
+using InvestmentPortfolio.Application.Interfaces;
 using InvestmentPortfolio.Application.Validators;
 using InvestmentPortfolio.Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace InvestmentPortfolio.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]   
+    [Route("financial-product")]   
     public class FinancialProductController : ControllerBase
     {
         private readonly IFinancialProductAppService _financialProductAppService;
@@ -16,14 +17,14 @@ namespace InvestmentPortfolio.API.Controllers
             _financialProductAppService = financialProductAppService;
         }
 
-        [HttpGet]
+        [HttpGet()]
         public IActionResult GetAllFinancialProducts()
         {
             var products = _financialProductAppService.GetAll();
             return Ok(products);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult GetFinancialProductById(int id)
         {
             var product = _financialProductAppService.GetById(id);
@@ -36,11 +37,10 @@ namespace InvestmentPortfolio.API.Controllers
         [HttpPost]
         public IActionResult AddFinancialProduct([FromBody] FinancialProductViewModel financialProductViewModel)
         {
-            var validator = new FinancialProductValidator();
-            var validationResult = validator.Validate(financialProductViewModel);
+            var validationResult = new FinancialProductValidator().Validate(financialProductViewModel);
 
-            if (!ModelState.IsValid)
-                return BadRequest();
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.ToDictionary());
 
             _financialProductAppService.Add(financialProductViewModel);
             return Ok();
@@ -49,12 +49,10 @@ namespace InvestmentPortfolio.API.Controllers
         [HttpPut]
         public IActionResult UpdateFinancialProduct([FromBody] FinancialProductViewModel financialProductViewModel)
         {
-            // Validar o modelo usando FluentValidation
-            var validator = new FinancialProductValidator(); // Supondo que você tenha um validador definido
-            var validationResult = validator.Validate(financialProductViewModel);
+            var validationResult = new FinancialProductValidator().Validate(financialProductViewModel);
 
             if (!validationResult.IsValid)
-                return BadRequest(validationResult.Errors);
+                return BadRequest(validationResult.ToDictionary());
 
             _financialProductAppService.Update(financialProductViewModel);
             return Ok();

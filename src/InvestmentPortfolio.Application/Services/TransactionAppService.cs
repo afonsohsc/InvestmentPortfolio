@@ -17,9 +17,9 @@ namespace InvestmentPortfolio.Application.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<TransactionViewModel> GetAll()
+        public IEnumerable<TransactionViewModel> GetAll(int clientId)
         {
-            return _mapper.Map<IEnumerable<TransactionViewModel>>(_transactionRepository.GetAll());
+            return _mapper.Map<IEnumerable<TransactionViewModel>>(_transactionRepository.GetAll().Where(t => t.UserId == clientId));
         }
 
         public TransactionViewModel GetById(int id)

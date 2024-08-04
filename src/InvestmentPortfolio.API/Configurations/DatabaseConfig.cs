@@ -1,4 +1,5 @@
 ﻿using InvestmentPortfolio.Infra.Data.Context;
+using InvestmentPortfolio.Infra.Data.Seeds;
 using Microsoft.EntityFrameworkCore;
 
 namespace InvestmentPortfolio.API.Configurations
