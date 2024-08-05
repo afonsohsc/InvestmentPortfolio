@@ -10,7 +10,7 @@ namespace InvestmentPortfolio.API.Configurations
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             NativeInjectorBootStrapper.Register(builder);
-            //builder.Services.AddHostedService<EmailHostedService>();
+            builder.Services.AddHostedService<EmailHostedService>();
 
             return builder;
         }

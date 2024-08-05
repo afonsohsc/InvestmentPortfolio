@@ -15,9 +15,9 @@ namespace InvestmentPortfolio.Infra.CrossCutting.Services
             _emailSettings = emailSettings.Value;
         }
 
-        public async Task SendEmailAsync(string group, IEnumerable<string> emails, string subject, string message, CancellationToken cancellationToken = default)
+        public async Task SendEmailAsync(string group, IEnumerable<MailAddressUser> emails, string subject, string message, CancellationToken cancellationToken = default)
         {
-            MimeMessage mimeMessage = CreateEmailMessage(group,emails, subject, message);
+            MimeMessage mimeMessage = CreateEmailMessage(group, emails, subject, message);
 
             using (var client = new SmtpClient())
             {
@@ -41,11 +41,11 @@ namespace InvestmentPortfolio.Infra.CrossCutting.Services
             }
         }
 
-        private MimeMessage CreateEmailMessage(string group, IEnumerable<string> emails, string subject, string message)
+        private MimeMessage CreateEmailMessage(string group, IEnumerable<MailAddressUser> emails, string subject, string message)
         {
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress(_emailSettings.Name, _emailSettings.From));
-            var mailboxAddressList = emails.Select(e => new MailboxAddress(e.Split('@').FirstOrDefault(), e));
+            var mailboxAddressList = emails.Select(e => new MailboxAddress(e.Name, e.Email));
             emailMessage.To.Add(new GroupAddress(group, mailboxAddressList));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)

@@ -11,7 +11,7 @@ namespace InvestmentPortfolio.Infra.Data.Repositories
 
         public IEnumerable<TEntity> GetAll()
         {
-            return _context.Set<TEntity>().ToList();
+            return _context.Set<TEntity>();
         }
 
         public TEntity GetById(int id)

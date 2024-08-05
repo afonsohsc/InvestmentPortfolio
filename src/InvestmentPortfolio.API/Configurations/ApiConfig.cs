@@ -1,4 +1,6 @@
-﻿namespace InvestmentPortfolio.API.Configurations
+﻿using InvestmentPortfolio.Infra.CrossCutting.Entities;
+
+namespace InvestmentPortfolio.API.Configurations
 {
     public static class ApiConfig
     {
@@ -11,6 +13,8 @@
                         .AddJsonFile("appsettings.json", true, true)
                         .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
                         .AddEnvironmentVariables();
+
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
             builder.Services.AddControllers();
 
