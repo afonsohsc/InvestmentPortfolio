@@ -43,7 +43,7 @@ namespace InvestmentPortfolio.API.HostedServices
                 nextExecutionTime = nextExecutionTime.AddDays(1);
             }
 
-            TimeSpan timeToGo = DateTime.Now - currentTime;
+            TimeSpan timeToGo = nextExecutionTime - currentTime;
 
             _timer = new Timer(
                 async _ => await ExecuteNotificationDailyTask(),
@@ -68,7 +68,7 @@ namespace InvestmentPortfolio.API.HostedServices
                 
                 var userAdmin = MaillAddressUserAdmin(userRepository);
 
-                await emailService.SendEmailAsync(Role.Administrator.ToString(), userAdmin, _subject, "", _cancellationTokenSource.Token);
+                await emailService.SendEmailAsync(Role.Administrator.ToString(), userAdmin, _subject, msg, _cancellationTokenSource.Token);
             }
         }
 
